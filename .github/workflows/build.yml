@@ -38,15 +38,15 @@ jobs:
     - name: build after
       run: |  
           cd /opt/rt-n56u
-          make -j$(nproc) tools/install
-          make -j$(nproc) toolchain/install
+          make -j$(nproc) tools/install V=s
+          make -j$(nproc) toolchain/install V=s
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
     - name: build zerotier
       run: |  
           cd /opt/rt-n56u
-          make -j$(nproc) target/compile
+          make -j$(nproc) target/compile  
           make package/zerotier/compile
     - name : Upload packages
       uses: actions/upload-artifact@master
