@@ -42,4 +42,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
-          
+    - name : Upload packages
+      uses: actions/upload-artifact@master
+      if: always()
+      with:
+        name: Padavan-packages
+        path: /opt/images      
