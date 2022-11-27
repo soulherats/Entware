@@ -35,21 +35,18 @@ jobs:
           cd /opt/rt-n56u
           make package/symlinks
           cp -v configs/mipsel-3.4.config .config
-    - uses: actions/checkout@v2
-    - name: Setup Debug Session
-      uses: csexton/debugger-action@master
     - name: build after
       run: |  
           cd /opt/rt-n56u
           make -j$(nproc) tools/install
           make -j$(nproc) toolchain/install
-          make -j$(nproc) target/compile
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
     - name: build zerotier
       run: |  
           cd /opt/rt-n56u
+          make -j$(nproc) target/compile
           make package/zerotier/compile
     - name : Upload packages
       uses: actions/upload-artifact@master
