@@ -40,6 +40,7 @@ jobs:
       uses: csexton/debugger-action@master
     - name: build after
       run: |  
+          cd /opt/rt-n56u
           make -j$(nproc) tools/install
           make -j$(nproc) toolchain/install
           make -j$(nproc) target/compile
