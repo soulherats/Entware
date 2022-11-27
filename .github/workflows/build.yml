@@ -44,10 +44,10 @@ jobs:
           make -j$(nproc) tools/install
           make -j$(nproc) toolchain/install
           make -j$(nproc) target/compile
-          make package/zerotier/compile
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
+          make package/zerotier/compile
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
