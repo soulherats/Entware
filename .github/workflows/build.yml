@@ -47,6 +47,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
+    - name: build zerotier
+      run: |  
+          cd /opt/rt-n56u
           make package/zerotier/compile
     - name : Upload packages
       uses: actions/upload-artifact@master
