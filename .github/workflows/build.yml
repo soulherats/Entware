@@ -19,7 +19,8 @@ jobs:
           cd ~
           wget https://github.com/zerotier/ZeroTierOne/archive/refs/tags/${DEBIAN_FRONTEND}.tar.gz
           tar -zxvf ${DEBIAN_FRONTEND}.tar.gz
-          mv ZeroTierOne-${DEBIAN_FRONTEND}/ a
+          mv ~/ZeroTierOne-${DEBIAN_FRONTEND}/ ~/a
+          cd ~
           cp -r a b
           sed -i '235,239d' b/osdep/LinuxEthernetTap.cpp
           diff -up a/osdep/LinuxEthernetTap.cpp b/osdep/LinuxEthernetTap.cpp > home.patch
@@ -35,7 +36,6 @@ jobs:
           make -j$(nproc) tools/install V=s
           make -j$(nproc) toolchain/install V=s
           make -j$(nproc) target/compile
-          cp ~/home.patch /opt/rt-n56u/feeds/packages/net/zerotier/pacthes
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
