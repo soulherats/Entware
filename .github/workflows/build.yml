@@ -19,11 +19,9 @@ jobs:
           git clone https://github.com/zerotier/ZeroTierOne
           cd ZeroTierOne
           git checkout 1.10.1
-          cd ..
-          mv ZeroTierOne a
-          cp -r a b
           sed -i '235,239d' b/osdep/LinuxEthernetTap.cpp
-          diff -up a/osdep/LinuxEthernetTap.cpp b/osdep/LinuxEthernetTap.cpp > home.patch
+          git diff > home.patch
+          cat home.patch
     - name: build
       run: |
           git clone https://github.com/soulherats/Entware /opt/rt-n56u
