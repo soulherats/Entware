@@ -19,7 +19,7 @@ jobs:
           cd ~
           wget https://github.com/zerotier/ZeroTierOne/archive/refs/tags/${DEBIAN_FRONTEND}.tar.gz
           tar -zxvf ${DEBIAN_FRONTEND}.tar.gz
-          mv ZeroTierOne-${DEBIAN_FRONTEND} a
+          mv ZeroTierOne-${DEBIAN_FRONTEND}/ a
           cp -r a b
           sed -i '235,239d' b/osdep/LinuxEthernetTap.cpp
           diff -up a/osdep/LinuxEthernetTap.cpp b/osdep/LinuxEthernetTap.cpp > home.patch
