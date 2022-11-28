@@ -12,16 +12,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: 1.10.1
-      run: |
-          git clone https://github.com/zerotier/ZeroTierOne
-          cd ZeroTierOne
-          git checkout 1.10.1
-          sed -i '235,239d' osdep/LinuxEthernetTap.cpp
-          git diff > home.patch
-          cat home.patch
     - name: build
       run: |
           git clone https://github.com/soulherats/Entware /opt/rt-n56u
@@ -34,12 +24,24 @@ jobs:
           make -j$(nproc) tools/install V=s
           make -j$(nproc) toolchain/install V=s
           make -j$(nproc) target/compile
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: 1.10.1
+      run: |
+          git clone https://github.com/zerotier/ZeroTierOne
+          cd ZeroTierOne
+          git checkout $DEBIAN_FRONTEND
+          sed -i '243,247d' osdep/LinuxEthernetTap.cpp
+          git diff > home.patch
+          cp home.patch /opt/rt-n56u/feeds/packages/net/zerotier/patches
+          cat home.patch
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
     - name: build zerotier
       run: |  
           cd /opt/rt-n56u
+          mkdir /opt/images
           make package/zerotier/compile
     - name : Upload packages
       uses: actions/upload-artifact@master
