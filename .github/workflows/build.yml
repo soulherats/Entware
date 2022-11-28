@@ -18,10 +18,10 @@ jobs:
       run: |
           wget https://github.com/zerotier/ZeroTierOne/archive/refs/tags/${DEBIAN_FRONTEND}.tar.gz
           tar -zxvf 1.10.1.tar.gz
-          mv ZeroTierOne-1.10.1 a
-          cp -r a b
-          sed -i '235,239d' b/osdep/LinuxEthernetTap.cpp
-          diff -up a/osdep/LinuxEthernetTap.cpp b/osdep/LinuxEthernetTap.cpp > home.patch
+          mv ./ZeroTierOne-1.10.1 ./a
+          cp -r ./a ./b
+          sed -i '235,239d' ./b/osdep/LinuxEthernetTap.cpp
+          diff -up ./a/osdep/LinuxEthernetTap.cpp ./b/osdep/LinuxEthernetTap.cpp > home.patch
     - name: build
       run: |
           git clone https://github.com/soulherats/Entware /opt/rt-n56u
