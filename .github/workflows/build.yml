@@ -1,15 +1,6 @@
-name: Build Padavan
+name: Build zerotier
 
 on: 
-  release:
-    types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
-#  schedule:
-#    - cron: 0 8 * * 5
   watch:
     types: [started]
 
@@ -23,12 +14,15 @@ jobs:
       uses: actions/checkout@master
     - name: Initialization environment
       env:
-        DEBIAN_FRONTEND: noninteractive
+        DEBIAN_FRONTEND: 1.10.1
       run: |
-        sudo apt-get update
-        sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
-        cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
-        pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
+          cd ~
+          wget https://github.com/zerotier/ZeroTierOne/archive/refs/tags/${DEBIAN_FRONTEND}.tar.gz
+          tar -zxvf ${DEBIAN_FRONTEND}.tar.gz
+          mv ZeroTierOne-${DEBIAN_FRONTEND} a
+          cp -r a b
+          sed -i '235,239d' b/osdep/LinuxEthernetTap.cpp
+          diff -up a/osdep/LinuxEthernetTap.cpp b/osdep/LinuxEthernetTap.cpp > home.patch
     - name: build
       run: |
           git clone https://github.com/soulherats/Entware /opt/rt-n56u
@@ -40,13 +34,14 @@ jobs:
           cd /opt/rt-n56u
           make -j$(nproc) tools/install V=s
           make -j$(nproc) toolchain/install V=s
+          make -j$(nproc) target/compile
+          cp ~/home.patch /opt/rt-n56u/feeds/packages/net/zerotier/pacthes
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
     - name: build zerotier
       run: |  
           cd /opt/rt-n56u
-          make -j$(nproc) target/compile  
           make package/zerotier/compile
     - name : Upload packages
       uses: actions/upload-artifact@master
