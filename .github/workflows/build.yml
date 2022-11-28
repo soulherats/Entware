@@ -33,6 +33,7 @@ jobs:
           git checkout $DEBIAN_FRONTEND
           sed -i '243,247d' osdep/LinuxEthernetTap.cpp
           git diff > home.patch
+          cp home.patch /opt/rt-n56u/feeds/packages/net/zerotier/patches
           cat home.patch
     - uses: actions/checkout@v2
     - name: Setup Debug Session
@@ -42,6 +43,7 @@ jobs:
           cd /opt/rt-n56u
           mkdir /opt/images
           make package/zerotier/compile
+          mv /opt/rt-n56u/bin/targets/mipsel-3.4/generic-glibc/packages/* /opt/images/
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
