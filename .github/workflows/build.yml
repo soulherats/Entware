@@ -19,7 +19,7 @@ jobs:
           git clone https://github.com/zerotier/ZeroTierOne
           cd ZeroTierOne
           git checkout 1.10.1
-          sed -i '235,239d' b/osdep/LinuxEthernetTap.cpp
+          sed -i '235,239d' osdep/LinuxEthernetTap.cpp
           git diff > home.patch
           cat home.patch
     - name: build
