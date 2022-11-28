@@ -16,8 +16,9 @@ jobs:
       env:
         DEBIAN_FRONTEND: 1.10.1
       run: |
-          wget https://github.com/zerotier/ZeroTierOne/archive/refs/tags/${DEBIAN_FRONTEND}.tar.gz
-          tar -zxvf 1.10.1.tar.gz
+          git clone https://github.com/zerotier/ZeroTierOne
+          ls
+          git checkout 1.10.1
     - name: build
       run: |
           git clone https://github.com/soulherats/Entware /opt/rt-n56u
