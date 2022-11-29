@@ -32,7 +32,7 @@ jobs:
           git clone https://github.com/zerotier/ZeroTierOne
           cd ZeroTierOne
           git checkout $DEBIAN_FRONTEND
-          sed -i '273,288d' osdep/LinuxEthernetTap.cpp
+          sed -i '235,239d' osdep/LinuxEthernetTap.cpp
           sed -i '251c 	if (!isOldLinuxKernel()) {' osdep/LinuxEthernetTap.cpp
           git diff > home.patch
           cp home.patch /opt/rt-n56u/feeds/packages/net/zerotier/patches
