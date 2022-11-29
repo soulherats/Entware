@@ -32,6 +32,11 @@ jobs:
           git clone https://github.com/zerotier/ZeroTierOne
           cd ZeroTierOne
           git checkout $DEBIAN_FRONTEND
+          sed -i '273,288d' osdep/LinuxEthernetTap.cpp
+          sed -i '251c 	if (!isOldLinuxKernel()) {' osdep/LinuxEthernetTap.cpp
+          cp home.patch /opt/rt-n56u/feeds/packages/net/zerotier/patches
+          git diff > home.patch
+          cat home.patch
     - uses: actions/checkout@v2
     - name: Setup Debug Session
       uses: csexton/debugger-action@master
