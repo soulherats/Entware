@@ -18,10 +18,14 @@ jobs:
           cd /opt/rt-n56u
           make package/symlinks
           cp -v configs/mipsel-3.4.config .config
-    - name: build after
-     with:
+    - name: Set up Python 2x
+        uses: actions/setup-python@v4
+        with:
           # Semantic version range syntax or exact version of a Python version
           python-version: '2.x'
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: 'x64'
+    - name: build after
       run: |  
           cd /opt/rt-n56u
           make -j$(nproc) tools/install V=s
