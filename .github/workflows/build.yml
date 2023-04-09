@@ -19,6 +19,9 @@ jobs:
           make package/symlinks
           cp -v configs/mipsel-3.4.config .config
     - name: build after
+     with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '2.x'
       run: |  
           cd /opt/rt-n56u
           make -j$(nproc) tools/install V=s
